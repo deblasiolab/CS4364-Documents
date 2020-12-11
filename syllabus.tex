@@ -1,0 +1,389 @@
+%% adapted from Chris Bourke's syllabus template for CS 1
+%% https://github.com/cbourke/ComputerScienceI
+%% Accessed on 29 July 2020
+%% Used and distributed under the CC BY-SA 4.0 License
+
+\documentclass[12pt]{scrartcl}
+\usepackage{tagpdf}
+
+\usepackage{epsfig,amssymb}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{multirow}
+\usepackage{colortbl} 
+\usepackage{xspace}
+\usepackage[normalem]{ulem}
+
+\usepackage{tcolorbox}
+
+\definecolor{steelblue}{RGB}{70, 130, 180}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usepackage[pdflang={en-US}]{hyperref}
+\hypersetup{
+  letterpaper,
+  colorlinks,
+  linkcolor=darkgreen,
+  citecolor=darkgreen,
+  menucolor=darkred,
+  urlcolor=blue,
+  pdfpagemode=none,
+  pdftitle={Syllabus},
+  pdfauthor={Dan DeBlasio},
+  pdfkeywords={}
+}
+\setcounter{tocdepth}{2}
+
+\usepackage{fullpage}
+\pagestyle{empty} %
+\usepackage{subfigure}
+\usepackage{enumitem}
+\setenumerate{nolistsep}
+\setitemize{nolistsep}
+\renewcommand{\labelenumii}{\alph{enumii}.}
+
+
+\setlength{\parindent}{0pt} %
+\setlength{\parskip}{.25cm}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\renewcommand*{\titlepagestyle}{fancy}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\lhead{~}
+\chead{~}
+\rhead{~}
+\lfoot{STiDS: Algorithms for Computational Biology --- Syllabus}
+\cfoot{~}
+\rfoot{\thepage\ / \pageref*{LastPage}}
+
+\makeatletter
+\title{Special Topics in Data Science: 
+Algorithms for Computational Biology}\let\Title\@title
+\subtitle{
+{\small
+\vskip0.5cm
+Dr. Dan DeBlasio\\
+Department of Computer Science \\
+University of Texas at El Paso}
+\vskip-1cm}
+\date{\small CS 4364/5364 -- Spring 2021}
+\makeatother
+
+\newcommand{\change}[2]{\xspace\textcolor{orange}{#2}}
+%\newcommand{\change}[2]{#2}
+
+
+\tagpdfifpdftexT
+ {
+  \pdfcatalog{/Lang (en-US)}
+  \usepackage[T1]{fontenc}
+ }
+ 
+\tagpdfsetup{activate-all,tabsorder=structure}
+
+\begin{document}
+\tagstructbegin{tag=Document}
+
+\maketitle
+
+\begin{center}
+{\Huge\color{red}DRAFT}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{General Information}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Course Description:} 
+This course will cover the algorithms that make modern computational biology and bioinformatics possible. 
+The plan is to cover both foundational algorithms such as sequence alignment, 
+as well as their modern applications in solving problems such a genome assembly. 
+The focus of this course is on how computer scientists apply their knowledge to frame a computational problem inspired by a specific real-world problem 
+and to solve such computational problems. 
+In addition to standard algorithm development, 
+the course will cover the influence of convex optimization (mainly integer linear programming) and machine learning on computational biology. 
+The course assumes no previous knowledge in biology or genetics. 
+The course will build on and enhance students’ basic understanding of the principle of algorithm design and analysis by applying such principles in the context of bioinformatics.
+
+
+\paragraph{Course Objectives:} This course is designed to study algorithm design and analysis in the context of problems related to computational biology. 
+After the course concludes successful students will not only have a deeper understanding of algorithms, but a taste for the techniques used to convert real-world problems into computational ones;
+as well as common strategies on solving them. 
+
+
+\paragraph{Prerequisite:} CS 2302 or instructor approval. 
+
+\paragraph{Knowledge and Abilities Required Before Entering the Course:} Students are assumed to be comfortable with basic algorithm design and analysis. 
+One of the major recurring themes will be algorithm running time and memory consumption improvement. 
+Students should also be familiar with common problem solving techniques in particular dynamic programming.
+A knowledge of basic machine learning concepts (such as training/testing test construction, etc) will be helpful as well, though not required. 
+
+\paragraph{Tentative list of topics covered this semester:}
+\begin{itemize} 
+\item Pairwise Sequence Alignment
+\item Multiple Sequence Alignment
+\item Genome Assembly
+\item Metagenomic \& Alignment-free Genomic Analaysis
+\item Phylogenetic Reconstruction
+\item Integer Linear Programming Applications
+\item Machine Learning Applications
+\end{itemize}
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logistics}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Synchronous course session times:}
+\begin{itemize}
+\item TR 3:00pm-4:30pm
+\end{itemize}
+
+
+\paragraph{Textbook:} We will use a combination of a textbook (details below) and primary literature. 
+The textbook we will use is ``Algorithms in Bioinformatics: A Practical Approach'' by Wing-Sun Kim. 
+PDFs of additional material will be provided as needed on the course website. 
+
+Though not required, other helpful texts are:
+\begin{itemize}
+\item ``Algorithms on Strings Trees and Sequences'' by Dan Gusfield (on hold at the UTEP library)
+\item ``Algorithms for Next Generation Sequencing'' by Wing-Sun Kim
+\item ``Bioinformatics Algorithms: An Active Learning Approach'' by Phillip Compeau and Pavel Pevzner 
+\end{itemize}
+
+
+\paragraph{Communication platforms:}
+\begin{itemize}
+\item \textbf{Course Website} -- \href{https://specialtopics.deblasiolab.org/s21/}{\texttt{specialtopics.deblasiolab.org/s21/}} -- Used for course announcements, paper distribution, etc. 
+\item \textbf{Zoom}  -- Used for synchronous sessions, see the website for individual meeting links. 
+\item \textbf{MS Teams} -- \href{https://specialtopics.deblasiolab.org/s21/teams}{\texttt{specialtopics.deblasiolab.org/s21/teams}}  -- Used for office hours and intra-class discussions. Several channels will be available in the team for asking and answering questions, the instructional staff will answer questions posted on teams, but other students are encouraged to provide feedback as well. 
+\item \textbf{YouTube} -- \href{https://specialtopics.deblasiolab.org/s21/youtube}{\texttt{specialtopics.deblasiolab.org/s21/youtube}} -- Used to disseminate asynchronous video content. Students will keep up with assigned video content intended to supplement the textbook readings.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Instructional Staff}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{instructor}
+\begin{tabular}{lrl}
+Dr. Dan DeBlasio  
+ & email: & dfdeblasio@utep.edu\\
+ & chat on MS Teams: &  \href{http://teamsChat.deblasiolab.org}{\texttt{teamsChat.deblasiolab.org}} (direct message)\\
+ & office: & CCSB 3.1008\\
+\hspace{2em} Office Hours& MR 2:00p-3:00p & \href{http://specialtopics.deblasiolab.org/s21/officehours}{\texttt{specialtopics.deblasiolab.org/s21/officehours}}\\
+& & [or ``Office Hours'' on the class team]\\
+& appointments: & \href{http://calendly.deblasiolab.org}{\texttt{calendly.deblasiolab.org}}\\
+\end{tabular}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Expectations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Communication:} Students are expected to consult their emails and blackboard messages \textit{at least} twice a week, and to answer these as relevant. 
+
+\paragraph{Class Participation:} 
+Regular attendance is essential and expected. 
+Due to the high emphasis of group discussion and dialogue all students are discouraged from missing classes. 
+Missed course meetings will be noted and chronic absences may impact the students grade if not discussed with the course instructor.
+
+\textit{It is the student's responsibility to review the content covered during missed class(es) or labs, as well as the assignments given during their absence.}
+Participation points also include completing post-lecture and post-labs online quizzes (when requested) that are administered as surveys to monitor students’ overall progress and potential struggles.
+
+\paragraph{Collaboration} 
+The course project and homeworks are meant to expose the student to the topics being discussed. 
+While each student is responsible for their individual projects and homeworks; 
+cooperation and collaboration between students is highly encouraged but plagiarism will not be tolerated.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Grading}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Grades are communicated to students in a timely manner. 
+It is the students’ responsibility to keep track of their grades by compiling the grades they receive. 
+The approximate percentages are as follows:
+\begin{center}
+\begin{tabular}{rl}
+\textbf{35\% } & Homeworks\\
+\textbf{20\% } & Final Project\\
+\textbf{15\% } & Midterm Exam\\
+\textbf{20\% } & Final Exam \\
+\textbf{10\% } & Participation\\
+\end{tabular}
+\end{center}
+
+The base percentage-score-to-letter-grade conversion for this course is as follows: 
+\begin{center}
+\begin{tabular}{rl}
+\textbf{90\%}& or higher is guaranteed an A \\
+\textbf{80\%}& or higher is guaranteed a B \\
+\textbf{70\%}& or higher is guaranteed a C \\
+\textbf{60\%}& or higher is guaranteed a D \\
+\textbf{}& all lower grades are an F 
+\end{tabular}
+\end{center}
+These minimums may be lowered without notice but will not be raised. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Homework }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Grading for homework and exam questions is roughly according to the following scheme:
+\begin{itemize}
+\item correct solution idea and the right technical execution --- $>$90\%, 
+\item correct idea but with errors in its execution --- $>$80\%. 
+\item wrong idea and errors in its execution, but demonstrating comprehension of the material --- $>$70\%. 
+\item wrong idea, errors in execution, and deficiencies in comprehension --- $\sim$60\%, 
+\item  work that shows no understanding --- $\sim$50\%.
+\end{itemize}
+Writing an answer that \emph{relates to the question} guarantees at least 50\% of the points for the question, 
+no points are awarded for writing nothing.
+
+On homework, very-high-level ideas can be discussed with friends, but solutions must represent individual work and must be written up separately. 
+Any material from the Internet that is used in a solution must be cited by its URL; to not cite it is plagiarism, which is considered cheating.
+
+Students enrolled in the graduate course will have higher expectations on the homework assignments than those in the undergraduate class. 
+These will be defined in each assignment. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Exams}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Both exams (midterm and final) will be comprehensive. 
+All material presented in class (including during discussions and project presentations) 
+and those in homework and assigned readings will be included.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Course project}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Each student will complete a project related to the content of the course. 
+The project details will be posted on the website around the time of the midterm exam. 
+Students may either work individually or in pairs. 
+The goal will be to have hands-on experience with the algorithms we discuss in class. 
+Students with related research are encouraged to choose a project which is related to their work, but it must be separate from any research that is currently ongoing.
+
+Students enrolled in the graduate course will have higher expectations on the final project than those in the undergraduate class. 
+These will be defined in the project description. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Extra Credit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+As a source of extra credit, a student may choose a wikipedia entry related to the course and improve it substantially. 
+This can be accomplished once though the course of the semester and will be added to the students final grade, it can be worth an additional 7\%. 
+See Dr. DeBlasio either during office hours, by email, or by scheduling an appointment before any changes are made to any wikipedia page you plan to use.
+
+In addition, the International Society for Computational Biology runs a wikipedia competition each year, 
+extra credit assignment can be submitted to this competition as well for a monetary prize. 
+See \href{https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Molecular_Biology/Computational_Biology/10th_ISCB_Wikipedia_competition_announcement} {their post} 
+for more details and the associated submission dates. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Standing in the course}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Special Assignments:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+If deemed necessary, special assignments will be given to students to ensure that said students remain in the class and be successful. 
+These will be designed to help students grow into the course and develop the necessary skills.
+It is important that students feel free to ask their instructor about any such opportunity as well so that a special plan of development for CS2401 be tailored to them.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Standing in the Course:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Students will have access to their grades for all assignments so that they can self-monitor their standing and progress. 
+However, it is also completely fine for any student to come and talk to their instructor about their standing and work together to make sure the student is as successful as can be.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Dropping the Course:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Every semester, some students drop the course. We, instructors, completely understand and respect that. We only hereby ask students to inform us, ideally before, but in the worst-case right after, of their intention to drop the course. This is really important for us as it possibly informs us of ways in which to better serve our students.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special notices for COVID-19}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+While there is not a plan to hold any meetings of 2401 on campus this semester, 
+as the university updates it's campus operations there may be situations that lead a student to be on campus. 
+The following are a summary of the universities policies regarding COVID-19.
+
+You must STAY OFF CAMPUS and REPORT if you:
+(1) have been diagnosed with COVID- 19, 
+(2) are experiencing COVID-19 symptoms, or 
+(3) have had recent contact with a person who has received a positive coronavirus test. 
+Reports should be made at \href{http://screening.utep.edu}{\texttt{screening.utep.edu}}. 
+If you know anyone who should report any of these three criteria, encourage them to report. 
+If the individual cannot report, you can report on their behalf by sending an email to \url{COVIDaction@utep.edu}.
+
+For each day that you attend campus—for any reason—you must complete the questions on the UTEP screening website (\href{http://screening.utep.edu}{\texttt{screening.utep.edu}}) prior to arriving on campus. 
+The website will verify if you are permitted to come to campus. 
+Under no circumstances should anyone come to class when feeling ill or exhibiting any of the known COVID-19 symptoms. 
+If you are feeling unwell, please let me know as soon as possible, 
+and alternative instruction will be provided. Students are advised to minimize the number of encounters with others to avoid infection.
+
+Wear face coverings when in common areas of campus or when others are present. 
+You must wear a face covering over your nose and mouth at all times in this class. 
+If you choose not to wear a face covering, you may not enter the classroom. 
+If you remove your face covering, you will be asked to put it on or leave the classroom. 
+Students who refuse to wear a face covering and follow preventive COVID-19 guidelines will be dismissed from the class and will be subject to disciplinary action according to Section 1.2.3 Health and Safety and Section 1.2.2.5 Disruptions in the UTEP Handbook of Operating Procedures.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Resources}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Special Accommodations: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+If you have a disability and need classroom accommodations, please contact the Center for Accommodations and Support Services (CASS) at 747-5148 or by email to cass@utep.edu, or visit their office located in UTEP Union East, Room 106. For additional information, please visit the CASS website at \href{http://www.sa.utep.edu/cass}{\texttt{www.sa.utep.edu/cass}}. CASS’ staff are the only individuals who can validate and if need be, authorize accommodations for students with disabilities.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Scholastic Dishonesty: }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Any student who commits an act of scholastic dishonesty is subject to discipline. Scholastic dishonesty includes, but not limited to cheating, plagiarism, collusion, and submission for credit of any work or materials that are attributable to another person.
+
+Cheating is:
+\begin{itemize}
+\item Copying from the test paper of another student
+\item Communicating with another student during a test to be taken individually
+\item Giving or seeking aid from another student during a test to be taken individually
+\item Possession and/or use of unauthorized materials during tests (i.e. crib notes, class notes, books, etc.)
+\item Substituting for another person to take a test
+\item Falsifying research data, reports, academic work offered for credit
+\end{itemize}
+
+Plagiarism is:
+\begin{itemize}
+\item Using someone’s work in your assignments without the proper citations
+\item Submitting the same paper or assignment from a different course, without direct permission of instructors
+\item[]\vspace{1em} To avoid plagiarism, see: \\{\footnotesize\url{https://www.utep.edu/student-affairs/osccr/_Files/docs/Avoiding-Plagiarism.pdf}}
+\end{itemize}
+                               
+Collusion is:
+\begin{itemize}
+\item Unauthorized collaboration with another person in preparing academic assignments
+\end{itemize}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!75!black,title=Important!]
+When in doubt on any of the above, please contact your instructor to check if you are following authorized procedure. Also, please check the UTEP’s Handbook of Operating Procedures at: hoop.utep.edu. 
+\end{tcolorbox}
+
+\tagstructbegin{tag=Document}
+\end{document}
