@@ -18,6 +18,11 @@
 
 \usepackage{tcolorbox}
 
+
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\usepackage{xspace}
+
 \definecolor{steelblue}{RGB}{70, 130, 180}
 \definecolor{darkred}{rgb}{0.5,0,0}
 \definecolor{darkgreen}{rgb}{0,0.5,0}
@@ -74,7 +79,7 @@ University of Texas at El Paso}
 \date{\small CS 4364/5364 -- Spring 2021}
 \makeatother
 
-\newcommand{\change}[2]{\xspace\textcolor{orange}{#2}}
+\newcommand{\change}[2]{\sout{#1}\xspace\textcolor{orange}{#2}}
 %\newcommand{\change}[2]{#2}
 
 
@@ -91,9 +96,7 @@ University of Texas at El Paso}
 
 \maketitle
 
-\begin{center}
-{\Huge\color{red}DRAFT}
-\end{center}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{General Information}
@@ -127,14 +130,18 @@ A knowledge of basic machine learning concepts (such as training/testing test co
 \item Pairwise Sequence Alignment
 \item Multiple Sequence Alignment
 \item Genome Assembly
-\item Metagenomic \& Alignment-free Genomic Analaysis
+\item Metagenomic \& Alignment-free Genomic Analysis
 \item Phylogenetic Reconstruction
 \item Integer Linear Programming Applications
 \item Machine Learning Applications
 \end{itemize}
 
+\textit{\textbf{The remainder of this document is subject to change, notice will be made to students. Changes after the first day of class will be labeled }}
+\change{like this}{as  shown here}.
+
 \tableofcontents
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Logistics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -153,17 +160,63 @@ Though not required, other helpful texts are:
 \item ``Algorithms on Strings Trees and Sequences'' by Dan Gusfield (on hold at the UTEP library)
 \item ``Algorithms for Next Generation Sequencing'' by Wing-Sun Kim
 \item ``Bioinformatics Algorithms: An Active Learning Approach'' by Phillip Compeau and Pavel Pevzner 
+\item ``Integer Linear Programming for Computational and Systems Biology'' by Dan Gusfield
+\item ``Biological Modeling and Simulation'' by Russell Schwartz
 \end{itemize}
 
 
 \paragraph{Communication platforms:}
 \begin{itemize}
 \item \textbf{Course Website} -- \href{https://specialtopics.deblasiolab.org/s21/}{\texttt{specialtopics.deblasiolab.org/s21/}} -- Used for course announcements, paper distribution, etc. 
-\item \textbf{Zoom}  -- Used for synchronous sessions, see the website for individual meeting links. 
+\item \textbf{Zoom}  -- Used for synchronous sessions, links with the meeting ID and password were emailed to you and are available on blackboard. 
 \item \textbf{MS Teams} -- \href{https://specialtopics.deblasiolab.org/s21/teams}{\texttt{specialtopics.deblasiolab.org/s21/teams}}  -- Used for office hours and intra-class discussions. Several channels will be available in the team for asking and answering questions, the instructional staff will answer questions posted on teams, but other students are encouraged to provide feedback as well. 
 \item \textbf{YouTube} -- \href{https://specialtopics.deblasiolab.org/s21/youtube}{\texttt{specialtopics.deblasiolab.org/s21/youtube}} -- Used to disseminate asynchronous video content. Students will keep up with assigned video content intended to supplement the textbook readings.
 \end{itemize}
+ 
+\clearpage
+ 
+\subsection{Tentative Schedule}
 
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{lYY}
+\hline
+\textbf{Dates} &		 	\textbf{Tuesday Topic} &			\textbf{Thursday Topic}\\
+\hline
+\hline
+January 19 \& 21 & 		Introduction \& Algorithms Refresher	& Algorithms Refresher (cont.)	\& ILP Intro		\\
+\hline
+January 26 \& 28 & 		Molecular Biology Primer (Sung Ch. 1)& Molecular Biology Primer (cont.) 		\\
+\hline
+February 2 \& 4 & 		Global Pairwise Sequence Alignment (\S 2.1-2.2) & Global Pairwise (cont.)	\\
+\hline
+February 9 \& 11 & 		Local Pairwise Alignment (\S 2.3) & 	Gap Penalties (\S 2.5)				\\
+\hline
+February 16 \& 18 & 		Suffix Trees and Applications (\S3.1-3.4)& Suffix Trees (cont) 				\\
+\hline
+February 23 \& 25 & 		Suffix Arrays (\S 3.5) & 			LCS \& solution by ILP					\\
+\hline
+March 2 \& 4 &	 		Multiple Sequence Alignment (\S 6.1-6.2)& MSA Methods (\S 6.4-6.5) 		\\
+\hline
+March 9 \& 11 & 		Progressive Alignment (\S 6.6)& 	Parameter Configuration				\\
+\hline
+March 16 \& 18 & 		\multicolumn{2}{c}{\textbf{Spring Break}} \\
+\hline
+March 23 \& 25 & 		Genome Alignment (\S4.1-4.4) & 	Database Search (\S5.1-5.4) 			\\
+\hline
+March 30 \& April 1 & 	Advanced Database Search (\S5.5-5.8)& 	Advanced Database Search (cont.)	\\
+\hline
+April 6 \& 8 & 			Motif Finding (\S 10.1-10.7) &		Motif Finding (cont.)	\\
+\hline
+April 13 \& 15 & 		Phylogeny (\S7.1-7.3)& 			Phylogeny (cont.) \& ILP for perfect phylogeny	\\
+\hline
+April 20 \& 22 & 		Reference-based Genome Assembly & Reference-based Genome Assembly (cont.)	\\
+\hline
+April 27 \& 29 & 		\textit{de novo} Genome Assembly& 	\textit{de novo} Genome Assembly (cont.)	\\
+\hline
+May 4 \& 6 & 			Metagenomics& 				Metagenomics (cont.)				\\
+\hline
+\end{tabularx}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Instructional Staff}
@@ -174,10 +227,10 @@ Though not required, other helpful texts are:
 Dr. Dan DeBlasio  
  & email: & dfdeblasio@utep.edu\\
  & chat on MS Teams: &  \href{http://teamsChat.deblasiolab.org}{\texttt{teamsChat.deblasiolab.org}} (direct message)\\
- & office: & CCSB 3.1008\\
-\hspace{2em} Office Hours& MR 2:00p-3:00p & \href{http://specialtopics.deblasiolab.org/s21/officehours}{\texttt{specialtopics.deblasiolab.org/s21/officehours}}\\
-& & [or ``Office Hours'' on the class team]\\
-& appointments: & \href{http://calendly.deblasiolab.org}{\texttt{calendly.deblasiolab.org}}\\
+ & office: & \sout{CCSB 3.1008} (not applicable until further notice)\\
+\hspace{2em} Office Hours& \textbf{M 2:00p-3:00p} & \href{http://specialtopics.deblasiolab.org/s21/officehours}{\texttt{specialtopics.deblasiolab.org/s21/officehours}}\\
+& \textbf{R 1:00p-2:00p} & [or ``Office Hours'' on the class team]\\
+& or appointment: & \href{http://calendly.deblasiolab.org}{\texttt{calendly.deblasiolab.org}}\\
 \end{tabular}
 
 
@@ -185,7 +238,7 @@ Dr. Dan DeBlasio
 \section{Expectations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph{Communication:} Students are expected to consult their emails and blackboard messages \textit{at least} twice a week, and to answer these as relevant. 
+\paragraph{Communication:} Students are expected to consult their emails \textit{at least} twice a week, and to answer these as relevant. 
 
 \paragraph{Class Participation:} 
 Regular attendance is essential and expected. 
@@ -211,10 +264,10 @@ It is the students’ responsibility to keep track of their grades by compiling 
 The approximate percentages are as follows:
 \begin{center}
 \begin{tabular}{rl}
-\textbf{35\% } & Homeworks\\
-\textbf{20\% } & Final Project\\
-\textbf{15\% } & Midterm Exam\\
-\textbf{20\% } & Final Exam \\
+\textbf{45\% } & Homeworks\\
+\textbf{25\% } & Final Project\\
+\textbf{10\% } & Midterm Exam\\
+\textbf{10\% } & Final Exam \\
 \textbf{10\% } & Participation\\
 \end{tabular}
 \end{center}
@@ -242,16 +295,16 @@ Grading for homework and exam questions is roughly according to the following sc
 \item correct idea but with errors in its execution --- $>$80\%. 
 \item wrong idea and errors in its execution, but demonstrating comprehension of the material --- $>$70\%. 
 \item wrong idea, errors in execution, and deficiencies in comprehension --- $\sim$60\%, 
-\item  work that shows no understanding --- $\sim$50\%.
+\item relevant work that shows no understanding --- $\sim$50\%.
 \end{itemize}
 Writing an answer that \emph{relates to the question} guarantees at least 50\% of the points for the question, 
-no points are awarded for writing nothing.
+no points are awarded for writing nothing (or for anything unrelated to the question asked).
 
 On homework, very-high-level ideas can be discussed with friends, but solutions must represent individual work and must be written up separately. 
 Any material from the Internet that is used in a solution must be cited by its URL; to not cite it is plagiarism, which is considered cheating.
 
-Students enrolled in the graduate course will have higher expectations on the homework assignments than those in the undergraduate class. 
-These will be defined in each assignment. 
+\textbf{Students enrolled in the graduate course will have higher expectations on the homework assignments than those in the undergraduate class. 
+These will be defined in each assignment. }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Exams}
@@ -270,20 +323,31 @@ Students may either work individually or in pairs.
 The goal will be to have hands-on experience with the algorithms we discuss in class. 
 Students with related research are encouraged to choose a project which is related to their work, but it must be separate from any research that is currently ongoing.
 
-Students enrolled in the graduate course will have higher expectations on the final project than those in the undergraduate class. 
-These will be defined in the project description. 
+\textbf{Students enrolled in the graduate course will have higher expectations on the final project than those in the undergraduate class. 
+These will be defined in the project description.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Extra Credit}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-As a source of extra credit, a student may choose a wikipedia entry related to the course and improve it substantially. 
-This can be accomplished once though the course of the semester and will be added to the students final grade, it can be worth an additional 7\%. 
+\paragraph{Wikipedia Contribution ---} As a source of extra credit, a student may choose a wikipedia entry related to the course and improve it substantially. 
+This can be accomplished once though the course of the semester and will be added to the students final grade, 
+up to an additional 10\% applied to homework grade (up to a maximum of 55\% of the student's total grade).
 See Dr. DeBlasio either during office hours, by email, or by scheduling an appointment before any changes are made to any wikipedia page you plan to use.
 
 In addition, the International Society for Computational Biology runs a wikipedia competition each year, 
 extra credit assignment can be submitted to this competition as well for a monetary prize. 
 See \href{https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Molecular_Biology/Computational_Biology/10th_ISCB_Wikipedia_competition_announcement} {their post} 
 for more details and the associated submission dates. 
+
+\paragraph{Related Talks ---} Attending seminars related to the course can count as extra points toward a student's participation grade. 
+Up to 5\% of credit can be applied to homework grade (up to a maximum of 55\% of the student's total grade). 
+Sources of talk opportunities can be found via: 
+\begin{itemize}
+\item International Society of Computational Biology (ISCBAcademy) -- \\\url{https://www.iscb.org/iscbacademy-webinars}
+\item \#BlackInCompBio Series -- \url{https://www.blackwomencompbio.org/events}
+\end{itemize}
+To receive credit a student must give proof of attendance (screenshot of the talk, etc.) and submit a 1 paragraph summary of the major points presented. 
+Talks from other sources can be considered with prior approval of relevance. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
