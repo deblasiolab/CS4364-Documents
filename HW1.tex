@@ -1,0 +1,81 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+
+
+\usepackage{amsmath}
+%SetFonts
+
+%SetFonts
+
+
+\title{Homework 1}
+\author{CS 4364/5364\\Spring 2021}
+\date{Due: 10 February 2021}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+Because of the reliance of the particular assignments in this class on mathematical notation, 
+and the fact that all assignments will be submitted electronically, 
+students are encouraged to use \LaTeX{} to formalize their responses. 
+\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+This assignment (like all others) will be posted on the course \texttt{github} as source code as well as in PDF form on the course website. 
+Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+\begin{enumerate}
+\item \textbf{(20 points)} 
+We talked in class about writing the knapsack problem as an integer linear program. 
+Remember for the knapsack problem (without replacement) you are given the following:
+\begin{itemize}
+\item $w_{i}$ -- the weight of item $i$ for $i = 1 \dots n$, 
+\item $v_{i}$ -- the value of each item $i$ for $i = 1 \dots n$, and 
+\item $m$ -- the maximum weight you can cary in your knapsack. 
+\end{itemize}
+
+The goal is to find a set of items with maximum value such that the total weight of the items is less than or equal to the maximum weight you can cary. 
+
+Your task for this homework assignment is to formalize the ILP for the 0/1 knapsack problem, 
+and provide an explanation to how each component (each constraint or group of constraints and the objective equation) 
+contributes to solving the problem. 
+The definition should be in the same form as the example below. 
+The explanation should be in paragraph form following the solution. 
+The \emph{variables} in your ILP will be the set $x_{i}$ of binary values (i.e. $x_{i} \in \{1,0\}$) that states if item $i$ is in ($1$) or not in ($0$) your knapsack.
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!75!black,title=Writing down an ILP] 
+In this example below we are minimizing our objective function, our variables are $x_{1}, x_{2}, \& x_{3}$, and we have a collection of maximum values $m_{1}, m_{2}, \& m_{3}$. 
+As a reminder the objective function (which is being maximized or minimized) defines what makes a solution \emph{optimal}, 
+and the set of constraints (linear inequalities) define what makes a solution \emph{valid}
+As an aside, even though the values of $m_{x}$ are arbitrary that are not technically variables that we're trying to optimize. 
+\begin{equation*}
+\begin{array}{ll@{}ll}
+\text{minimize}  & 7 x_{1} + 14 x_{2} - 12 x_{3} \\
+\text{subject to}& x_{i} \leq m_{i}  &1 \le i \le 3\\
+			& \displaystyle\sum_{1 \le i \le 3}  x_{i} \geq 4,  &\\
+			& x_{i} \in \mathbb{Z}, &1 \le i \le 3
+\end{array}
+\end{equation*}
+(This ILP has no grounding in a real-world problem, I made it up.) 
+
+Note that the first and last line of the constraints section actually defines a collection of inequalities, one for each value of $i$. 
+\end{tcolorbox}
+
+\item \textbf{(20 points)} 
+Give an algorithm that takes in two string $\alpha$ and $\beta$, of length $n$ and $m$, and finds the longest suffix of $\alpha$ that exactly matches a prefix of $\beta$. 
+The algorithm should run in $O(n+m)$ time. 
+(Hint: your algorithm will likely rely on the fact that the $Z_{i}(S)$ values can be computed in time thats linear with respect to the length of a string $S$). 
+
+Your response should not only include a (high level) description of the algorithm in english prose (with additional pseudocode if absolutely necessary) 
+but a description of: (1) why the algorithm defined solved the problem and does not leave any corner cases, 
+as well as (2) an analysis of the running time to ensure that it fulfills the questions requirements. 
+\end{enumerate}
+
+
+\end{document}  
