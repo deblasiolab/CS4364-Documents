@@ -9,12 +9,15 @@
 \usepackage[disable]{todonotes}
 \usepackage{parskip}
 
-%SetFonts
+
+\usepackage{amsmath}
 
 %SetFonts
 
+%SetFonts
 
-\title{Example Homework Solution}
+
+\title{Example Homework Solutions}
 \author{Dan DeBlasio}
 \date{}							% Activate to display a given date or no date
 
@@ -54,5 +57,27 @@ The running time of step 1 for a string of length $n$ is $O(n)$ as given by Manb
 Steps 2 is an $O(1)$-time operation. 
 Step 3 can be performed in $O(kn)$-time: at each position $i$ in $a$ we compare $k$ values meaning the time for each position is $O(k)$, and we examine $n-k+1$ starting positions $i$ which is $O(n)$.
 Therefore the total running time is $O(kn)$.
+
+
+\section{Given a binary graph connection matrix $g$ such that $g_{ij} = g_{ji} = 1$ if nodes $i$ and $j$ are connected, and a weight $w_{i}$ for each node. 
+Formulate an ILP to find a subset of nodes (using a binary indicator variable $x_i$) that minimizes the total weight left out of the set (i.e. the sum of the non-included nodes) but does not allow any neighbors. 
+Assume there are $n$ nodes in the graph,}
+
+\begin{equation*}
+\begin{array}{ll@{}ll}
+\text{minimize}  & \displaystyle \sum_{1\leq i \leq n} w_i (1 - x_i)  &&\\
+\text{subject to}& x_i + x_j \le 1,  & 1 \le i,j \le n \;\&\; g_{ij} = 1\\
+			& x_{i} \in \{0,1\}, \;\;\;\; \;\;\;\; \;\;\;\;&1 \le i \le n
+\end{array}
+\end{equation*}
+
+The first set of constraints ensures no neighboring nodes from the graph are included in the set. 
+If two nodes are connected (i.e. $g_{ij} = 1$) then there will be an equation in the program stating that the sum of the indicators must be at most 1. 
+Since the $x_i$ and $x_j$ variables can only be 0 or 1 (due to the final set of constraints) either only one or neither one can be included in the set. 
+This means the constraint set limit the assignments to those that both only select non-neighbors and can only make binary inclusion choices. 
+
+If a node $i$ is not included in the set the variable $x_i$ will be $0$, therefore the value of $(1 - x_i)$ will be $1$. 
+Therefore the sum defined in the objective function finds the sum of the weights for the nodes \emph{not} included in the set (as specified in the problem). 
+Thus by minimizing this sum under the conditions above, we are finding the set of is optimal for the problem description. 
 
 \end{document}  
