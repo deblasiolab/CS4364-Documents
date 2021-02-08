@@ -63,13 +63,13 @@ Therefore the total running time is $O(kn)$.
 Formulate an ILP to find a subset of nodes (using a binary indicator variable $x_i$) that minimizes the total weight left out of the set (i.e. the sum of the non-included nodes) but does not allow any neighbors. 
 Assume there are $n$ nodes in the graph,}
 
-\begin{equation*}
-\begin{array}{ll@{}ll}
+\begin{equation}
+\begin{array}{rlclcl}
 \text{minimize}  & \displaystyle \sum_{1\leq i \leq n} w_i (1 - x_i)  &&\\
-\text{subject to}& x_i + x_j \le 1,  & 1 \le i,j \le n \;\&\; g_{ij} = 1\\
-			& x_{i} \in \{0,1\}, \;\;\;\; \;\;\;\; \;\;\;\;&1 \le i \le n
+\text{subject to }& x_i + x_j \le 1,  & 1 \le i,j \le n \;\&\; g_{ij} = 1\\
+			& x_{i} \in \{0,1\},&1 \le i \le n
 \end{array}
-\end{equation*}
+\end{equation}
 
 The first set of constraints ensures no neighboring nodes from the graph are included in the set. 
 If two nodes are connected (i.e. $g_{ij} = 1$) then there will be an equation in the program stating that the sum of the indicators must be at most 1. 
