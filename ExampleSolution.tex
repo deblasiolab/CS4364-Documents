@@ -72,7 +72,7 @@ Assume there are $n$ nodes in the graph,}
 \end{equation}
 
 The first set of constraints ensures no neighboring nodes from the graph are included in the set. 
-If two nodes are connected (i.e. $g_{ij} = 1$) then there will be an equation in the program stating that the sum of the indicators must be at most 1. 
+If two nodes are connected (i.e. $g_{ij} = 1$) then there will be an inequality in the program stating that the sum of the indicators must be at most 1. 
 Since the $x_i$ and $x_j$ variables can only be 0 or 1 (due to the final set of constraints) either only one or neither one can be included in the set. 
 This means the constraint set limit the assignments to those that both only select non-neighbors and can only make binary inclusion choices. 
 
