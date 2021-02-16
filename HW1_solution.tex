@@ -1,0 +1,106 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{url}
+
+\usepackage{amsmath}
+%SetFonts
+
+%SetFonts
+
+
+\title{Homework 1: Solutiuon}
+\author{CS 4364/5364\\Spring 2021}
+\date{Due: 10 February 2021}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+\item \textbf{(20 points)} 
+\textbf{We talked in class about writing the knapsack problem as an integer linear program. 
+Remember for the knapsack problem (without replacement) you are given the following:}
+\begin{itemize}
+\item $w_{i}$ -- the weight of item $i$ for $i = 1 \dots n$, 
+\item $v_{i}$ -- the value of each item $i$ for $i = 1 \dots n$, and 
+\item $m$ -- the maximum weight you can cary in your knapsack. 
+\end{itemize}
+
+\textbf{The goal is to find a set of items with maximum value such that the total weight of the items is less than or equal to the maximum weight you can cary. }
+
+\textbf{Your task for this homework assignment is to formalize the ILP for the 0/1 knapsack problem, 
+and provide an explanation to how each component (each constraint or group of constraints and the objective equation) 
+contributes to solving the problem. 
+The definition should be in the same form as the example below. 
+The explanation should be in paragraph form following the solution. 
+The \emph{variables} in your ILP will be the set $x_{i}$ of binary values (i.e. $x_{i} \in \{1,0\}$) that states if item $i$ is in ($1$) or not in ($0$) your knapsack.}
+
+{\Large The solution:}\\
+\begin{equation*}
+\begin{array}{ll@{}ll}
+\text{maximize}  & \displaystyle\sum_{i = 1 \dots n}  v_{i} \; x_{i}\\
+\text{subject to}&  \displaystyle\sum_{i = 1 \dots n}  w_{i} \; x_{i} \leq m,  &\\
+			& x_{i} \in  \{0,1\}, & i = 1 \dots n
+\end{array}
+\end{equation*}
+
+
+{\Large The explanation:}\\
+In the linear program above we have a single group of binary variables $x_{i}$, one for each possible item we can put in our knapsack. 
+The last line in our program restricts these variable to either being 1 (meaning the item is in our knapsack) or 0 (meaning it is not). 
+
+Once we know the $x$ variables have to be 0 or 1 we can move on to the objective function, 
+where we trying to maximize the function $\displaystyle\sum_{i = 1 \dots n}  v_{i} \; x_{i}$.
+Because $x_{i}$ is 0 or 1 the value of the item is only added into the sum if that item is chosen. 
+Therefore this function represents the total value of all of the items included in the solution. 
+Because the problem definition asks for the maximum value, we're going to try and maximize this function. 
+
+Finally, we are restricted to a certain weight. 
+Just as we did with the total value, we use the fact that the $x$ values are 0 or 1 to calculate a total weight of items in our knapsack. 
+We then bound that by the total weight we can carry. 
+Without this constraint the solution would be to include all items (this would maximize the objective function) but it violates the weight condition in the problem. 
+
+
+\item \textbf{(20 points)} 
+\textbf{Give an algorithm that takes in two string $\alpha$ and $\beta$, of length $n$ and $m$, and finds the longest suffix of $\alpha$ that exactly matches a prefix of $\beta$. 
+The algorithm should run in $O(n+m)$ time. 
+(Hint: your algorithm will likely rely on the fact that the $Z_{i}(S)$ values can be computed in time thats linear with respect to the length of a string $S$). 
+}
+
+{\Large The algorithm:}
+\begin{enumerate}
+\item construct a new string $S = \beta\$\alpha$ where the character $\$$ is not found in either $\alpha$ or $\beta$. 
+\item calculate $Z_{i}(S), \forall i = 1....|\alpha|+|\beta|+1$. 
+\item starting with $i = |\beta|+1$ scan in increasing values of $i$
+\begin{itemize}
+\item for each $i$ check if $Z_{i}(S) = |\alpha|+|\beta|+1-i$, if it is return the $\beta[1... |\alpha|+|\beta|+1-i]$ (which is also $\alpha[i-|\beta|-1...|\alpha]$).
+\end{itemize}
+\item if the condition is never met return the empty string. 
+\end{enumerate}
+
+{\Large Correctness:}\\
+We know that the $Z$ value tells us the length of the substring starting at a given position that exactly matches a prefix of the same string. 
+Since we are trying to match the prefix of $\beta$ we need to put it first when constructing our special string. 
+Then when we calculate all of the $Z$ values, if the length of the matching substring is the length thats left in the string we know its a suffix of $\alpha$. 
+By scanning from the left most character of $\alpha$ in $S$, 
+the first position we find that matches this criteria will be the longest, if there was a longer one it would have had to have started earlier in $\alpha$. 
+
+
+{\Large Complexity:}\\
+Step (a) takes $O(n+m)$ time (really $m+n+1$), linear time to construct a new string. 
+We know from class that we can calculate all of the $Z$ values for a string in time linear with respect to the string length, which in this case is $O(m+n)$. 
+The loop in (c) runs at most $O(n)$ times, and the work done inside (check and return) are constant time operations. 
+The final step is constant time and may never be reached. 
+Therefore the total running time is $O(m+n)$ (2 items that are $O(m+n)$ , an $O(n)$ loop, and a $O(1)$ operation). 
+
+\end{enumerate}
+
+
+\end{document}  
