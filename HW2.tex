@@ -1,0 +1,58 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{url}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{Homework 2}
+\author{CS 4364/5364\\Spring 2021}
+\date{Due: 25 February 2021}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+Because of the reliance of the particular assignments in this class on mathematical notation, 
+and the fact that all assignments will be submitted electronically, 
+students are encouraged to use \LaTeX{} to formalize their responses. 
+\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+This assignment (like all others) will be posted on the course \texttt{github}\footnote{\url{github.com/deblasiolab/CS4364-documents}} as source code as well as in PDF form on the course website. 
+Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+
+\begin{enumerate}
+
+
+\item \textbf{(20 points)} 
+Given two sequences $S$ and $T$ (not necessarily the same length), 
+let $G$, $L$, and $H$ be the scores of an optimal global alignment, an optimal local alignment, 
+and an optimal global alignment without counting the indels at the beginning of $S$ and the end of $T$, respectively. 
+\begin{enumerate}
+\item Give an example of $S$ and $T$ so that all 3 scores, $G$, $L$, and $H$, are different. 
+\item Prove or disprove the statement $L \ge H \ge G$.
+\end{enumerate}
+
+Note: for the proof, this can be a sketch, you just need to convince me that you're correct. 
+
+%\item \textbf{(1 Point)}
+%Under the affine gap model, describe an algorithm that find the optimal \textit{local} alignment of strings $S[1...n]$ and $T[1...m]$ in $O(mn)$-time. 
+
+\item \textbf{(20 points)} 
+Given two strings $S[1...n]$ and $T[1...m]$, we would like to find the two non-overlapping alignments 
+($S[i_1...i_2],T[j_1...j_2]$) and ($S[i_3...i_4],T[j_3...j_4]$) such that $i_2<i_3$ and $j_2<j_3$ and the total alignment score is maximized 
+in running time $O(mn)$. 
+Hints: remember that the local alignment between two sequences is the alignment of a pair of substrings from $S$ and $T$ such that the alignment score is maximized, 
+and that the question does not say anything about the relationship between $i_1$ and $i_2$ nor $i_3$ and $i_4$ that if $i_3>i_4, S[i_3...i_4]$ is the empty string.
+\end{enumerate}
+
+
+\end{document}  
