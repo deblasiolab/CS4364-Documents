@@ -1,0 +1,53 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{Homework 4}
+\author{CS 4364/5364\\Spring 2021}
+\date{Due: 12 April 2021}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+
+\item
+Assume that we compare the sequences below by counting the number of shared $3$-mers (that is how many of the unique $3$-mers in one sequence are also in the other). 
+For the following sequences, which pair is more similar. 
+\begin{itemize}
+\item $S_1$ = \texttt{ACGTCGATC}
+\item $S_2$ = \texttt{CCGGCGTCA}
+\item $S_3$ = \texttt{ACGCTCGAT}
+\end{itemize}
+
+
+Does this change if we look at $2$-mers?
+
+Hint: It will help to create a list of all of the possible $k$-mers and their existence in each of the strings then use that list to calculate the count for each pair of sequences. 
+
+
+
+\item
+Given a set of sequences $S_1, S_2, S_3, ..., S_k$, we would like to find $k$ substrings $T_1,T_2,T_3,...,T_k$ of $S_1, S_2, S_3, ..., S_k$ respectively, 
+such that the optimal SP score of the multiple sequence alignment of  $T_1,T_2,T_3,...,T_k$ is maximized. 
+\begin{enumerate}
+\item Design a dynamic programming algorithm to solve the problem with match, mismatch, and indel penalties of $\alpha, \beta, \gamma$ respectively (i.e. not affine gap scoring). 
+\item What is the time complexity? Explain your answer. 
+\end{enumerate}
+Note that when $k=2$, this problem is the same as pairwise local alignment. 
+
+
+\end{enumerate}
+
+\end{document}  
