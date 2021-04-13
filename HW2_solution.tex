@@ -1,0 +1,123 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb,amsthm}
+\usepackage[table]{xcolor}
+
+%SetFonts
+
+%SetFonts
+\usepackage{amsmath}
+\usepackage{MnSymbol}
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+\title{Homework 2 Solution}
+\author{CS 4364/5364\\Spring 2021}
+\date{Due: 25 February 2021}									% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+This homework is worth 5 points out of the total 25 points of homework in the class. 
+
+\begin{enumerate}
+
+
+\item
+\textit{Given two sequences $S$ and $T$ (not necessarily the same length), 
+let $G$, $L$, and $H$ be the scores of an optimal global alignment, an optimal local alignment, 
+and an optimal global alignment without counting the indels at the beginning of $S$ and the end of $T$, respectively. 
+\begin{enumerate}
+\item Give an example of $S$ and $T$ so that all 3 scores, $G$, $L$, and $H$, are different. 
+\item Prove or disprove the statement $L \ge H \ge G$.
+\end{enumerate}
+}
+
+\textbf{part (a)}
+Let $A \in \Sigma^n$ be an arbitrary string of length $n\ge1$ over some alphabet, 
+and let $x,y,z,w \notin \Sigma$ be 4 characters not contained in $A$. 
+Define $S=\{x\}^k\cdot A \cdot \{y\}^\ell$ and $T=\{z\}^\ell\cdot A \cdot \{w\}^k$, 
+where $\cdot$ is the concatination operator, $\{a\}^i$ is a string consisting of the letter $a$ repeated $i$ times, 
+and $k > \ell$. 
+
+The best local alignment will align the substrings $A$ in both $S$ and $T$ to each other, any extension would decrease the score (assuming the indel and mismatch values would penalize those operations). 
+The best semi-global alignment would add $2\ell$ mismatches or indels (whichever provides a lower penalty) to the local alignment since the beginning of $T$ and the end of $S$ must be aligned and those characters cannot be matches. 
+The best global alignment would have an additional $2(k-\ell)$ mismatches or $2k$ indels (again depending on the penalties). 
+
+\textbf{part (b)}
+Let $f(\mathbb{A})$ be the alignment score for alignment $\mathbb{A}$. 
+And let $G(A,B)$ be the optimal global alignment of sequences $A$ and $B$. 
+In the local sequence alignment algorithm we are searching over the set of all substrings, 
+so we can actually restate that as searching for the best alignment out of the set 
+\[
+ \mathcal{A}_\ell =: \left\{G\left(S[i...j],T[k...\ell]\right) \mid 1 \le i , j \le |S|, 1 \le k , \ell \le |T|\right\} \cup \{\mathbb{A}_\emptyset\},
+\]
+where $\mathbb{A}_\emptyset$ is the alignment of two empty strings. 
+We can rewrite the definition of local alignment as:
+$\mathbb{A}_\ell =: \argmax_{\mathbb{A} \in \mathcal{A}_\ell} \left\{ f\left(\mathbb{A}\right)  \right\}$. 
+
+Similarly, the set of alignments being considered by semi-global alignment (as defined in the problem) is 
+\[
+ \mathcal{A}_s =: \left\{G\left(S\left[i...\left|S\right|\right],T\left[1...\ell\right]\right) \mid 1 \le i \le |S|, 1 \le \ell \le |T|\right\}  \cup \{\mathbb{A}_\emptyset\}
+\]
+and the semi-global alignment problem reduces to $\mathbb{A}_s =: \argmax_{\mathbb{A} \in \mathcal{A}_s} \left\{ f\left(\mathbb{A}\right)  \right\}$. 
+Finally let the global alignment be $\mathbb{A}_g =: G(S,T)$ and thus the set considered by the problem contains only one element  $ \mathcal{A}_g =: \left\{\mathbb{A}_g\right\}$.
+
+As defined $ \mathcal{A}_g \subset \mathcal{A}_s \subset \mathcal{A}_\ell$. 
+We know that $f(\mathbb{A}_g) \le f(\mathbb{A}_s)$ since $\mathbb{A}_g \in \mathcal{A}_s$, and $ f(\mathbb{A}_s) \ge f(\mathbb{A}')$ for all $\mathbb{A}' \in \mathcal{A}_s$.
+The same argument applies to the other cases. 
+\qed
+
+%\item \textbf{(1 Point)}
+%Under the affine gap model, describe an algorithm that find the optimal \textit{local} alignment of strings $S[1...n]$ and $T[1...m]$ in $O(mn)$-time. 
+
+\item 
+\textit{Given two strings $S[1...n]$ and $T[1...m]$, we would like to find the two non-overlapping alignments 
+($S[i_1...i_2],T[j_1...j_2]$) and ($S[i_3...i_4],T[j_3...j_4]$) such that $i_2<i_3$ and $j_2<j_3$ and the total alignment score is maximized 
+in running time $O(mn)$. 
+Hints: remember that the local alignment between two sequences is the alignment of a pair of substrings from $S$ and $T$ such that the alignment score is maximized, 
+and that the question does not say anything about the relationship between $i_1$ and $i_2$ nor $i_3$ and $i_4$ that if $i_3>i_4, S[i_3...i_4]$ is the empty string.}
+
+\textbf{Algorithm}
+\begin{enumerate}
+\item using the recurrence for local alignment, create the matrix $V$, and a maximum value array $M$, where 
+\[
+M(i,j) =: \max \begin{cases}
+M(i-1,j-1)\\
+M(i-1,j)\\
+M(i,j-1)\\
+V(i,j)\\
+\end{cases}.
+\]
+The $M$ array keeps track of the maximum value local alignment between $S[1...i]$ and $T[1...j]$. \label{step:forwardLocal}
+\item using the same procedure as Step~\ref{step:forwardLocal} create $V'$ and $M'$ for the reverse of $S$ and $T$. \label{step:reverseLocal}
+\item perform a linear scan to find 
+\[
+(\hat{i},\hat{j}) = \argmax_{(i,j): 1 \le i < n, 1 \le j < m} \left\{M(i,j) + M'(i+1,j+1)\right\}
+\] \label{step:linearScan}
+\item let $(i_2,j_2)$ be the index in $V[i_2][j_2] = M(\hat{i},\hat{j})$ (assuming $M(i,j) \ne 0$, if it is $0$, set $(i_2,j_2) = (1,1)$)\label{step:forwardScan}
+\item perform a traceback in $V$ to find $(i_1, j_1)$. (if $V(i_2,j_2) == 0$ set $(i_1,j_1) = (0,0)$ to signify the empty strings.) \label{step:forwardTraceback}
+\item let $(i_3, j_3)$ be the index in $V'[i_3][j_3] = M'(\hat{i}+1,\hat{i}+1)$ (assuming $M'(\hat{i}+1,\hat{i}+1) \ne 0$, if it is $0$, set $(i_3,j_3) = (n,m)$).\label{step:reverseScan}
+\item perform a traceback in $V'$ to find $(i_4,j_4)$. (if $V(i_3,j_3) == 0$ set $(i_4,j_4) = (n-1, m-1)$ to signify the empty strings.)\label{step:reverseTraceback}
+\end{enumerate}
+
+The linear scan in Step~\ref{step:linearScan} finds the boundary between the regions where the two maximal sets of substrings exist. 
+Keeping the $M$ array keeps us from having to do a quadratic time scan for each possible partition of the local alignment space. 
+We can then find the maximal substrings in each of the regions using the techniques we already know.
+It is possible for one of the two substrings to be empty, in this case either $M(i,j) = 0$ or $M'(i+1,j+1)=0$, 
+in that case the whole maximal set of substrings would be in one partition, and nothing positive would be in the other. 
+
+Filling in $V, M, V', $ and $M'$ in Steps~\ref{step:forwardLocal} \&~\ref{step:reverseLocal} takes $O(mn)$-time each. 
+The linear scan in Step~\ref{step:linearScan} takes $O(mn)$-time.
+ The two linear scans in Steps~\ref{step:forwardScan} \&~\ref{step:reverseScan} take a total maximum of $O(mn)$-time. 
+ Finally, the tracebacks in Steps~\ref{step:forwardTraceback} \&~\ref{step:reverseTraceback} take a total maximum time of $O(mn)$-time. 
+This means there is a constant number of $O(mn)$-time steps. \qed
+
+\end{enumerate}
+
+\end{document}  
