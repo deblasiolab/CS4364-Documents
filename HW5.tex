@@ -1,0 +1,79 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+
+%SetFonts
+
+%SetFonts
+
+
+\title{\vspace{-5em}Homework 5}
+\author{CS 4364/5364\\Spring 2021}
+\date{Due: 29 April 2021}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item 
+Given an additive tree $T = (E,V)$ for $n$ species. 
+(a) Describe an algorithm for reconstructing the distance matrix between all of the species. 
+(b) What is the time complexity of the algorithm you described in (a) algorithm? 
+
+\item Given a set of sequences $R = (r_1,r_2,r_3,...,r_\ell)$, 
+which may contain single character changes (i.e. it may be one character from the alphabet, but should have been another).
+Design an algorithm that outputs a modified set of reads $R' = (r'_1,r'_2,r'_3,...,r'_\ell)$
+that replaces any changes such that the number of $k$-mers in $R'$ that are erroneous is lowered (it may not be eliminated, we define this below). 
+
+An \emph{erroneous} $k$-mer is one that occurs at least once and  less than 5 times. 
+Note that one character change will impact up to $2k-1$ overlapping $k$-mers. 
+
+You can assume you have access to 
+a $k$-mer conversion function $f(x) = y$ such that assigns an integer $y \in [1...\sigma^k]$ to each $x \in \Sigma^k$, and 
+a $k$-mer count array $C[0...\sigma^k]$ where $C[y]$ contains the number of times $f^{-1}(y)$ occurs in $R$. 
+(Here $f^{-1}(y)$ returns the $k$-mer $x$ given an index $y$.)
+
+You can also assume that any window of $2k$ bases will only have 1 error, i.e. there will never be conflicts where two point mutations in the same $k$-mer. 
+In the case that a character could be replaced with two different characters and satisfy this condition, prefer the one that has more total occurrences across the $k$ overlapping windows. 
+
+\textbf{Note:} There are multiple solutions, some examples include a greedy solution, a dynamic programming solution, and an ILP. 
+You can choose any of these as long as you justify that your solution will not \emph{increase} the number of errornious $k$-mers. 
+ 
+\clearpage 
+\textbf{Example:} 
+assume $k=3$ and the following read segment corrections would be made in this window of $6$ characters given these $k$-mer frequencies:
+\begin{center}
+\texttt{...ACTTG...} $\longrightarrow$ \texttt{...ACCTG...}
+
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $C[f(x)]$\\
+\hline
+\texttt{ACA} & 100\\
+\texttt{ACC} & 50 $\rightarrow$ 51\\
+\texttt{ACT} & 1 $\rightarrow$ 0 \\
+\texttt{ACG} & 9\\
+\texttt{ATG} & 2\\
+\texttt{CAT} & 4\\
+\texttt{CCT} & 12 $\rightarrow$ 13\\
+\texttt{CTT} & 4 $\rightarrow$ 3\\
+\texttt{CTG} & 7 $\rightarrow$ 8\\
+\texttt{CGT} & 0\\
+\texttt{TTG} & 2 $\rightarrow$ 1\\
+\texttt{GTG} & 3\\
+\hline
+\end{tabular}
+\end{center}
+
+In this example, changing the middle \texttt{T} to a \texttt{C} eliminates three occurrences of erroronious  $k$-mers. 
+The change in any values in the count array are illustrated, the original value is to the left, the counts after the change are shown to the right. 
+
+\end{enumerate}
+
+\end{document}  
