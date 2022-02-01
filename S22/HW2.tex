@@ -1,0 +1,114 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{url}
+
+\usepackage{amsmath}
+%SetFonts
+%\usepackage{multicolumn}
+\usepackage{multirow}
+%SetFonts
+
+
+\title{Homework 2}
+\author{CS 4364/5364\\Spring 2022}
+\date{Due: 9 February 2022}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+Because of the reliance of the particular assignments in this class on mathematical notation, 
+and the fact that all assignments will be submitted electronically, 
+students are encouraged to use \LaTeX{} to formalize their responses. 
+\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+This assignment (like all others) will be posted on the course \texttt{github}\footnote{\url{github.com/deblasiolab/CS4364-documents}} as source code as well as in PDF form on the course website. 
+Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+\begin{enumerate}
+\item \textbf{(25 points)} 
+The first method we saw to find a pattern $P$ in a text $T$ was using the maximum prefix overlap values on a special string (calculate $M_i$ for each $i$ in the string $P$\texttt{\$}$T$).
+We know that we can compute these $M_i$ values in $O(m+n)$ time (assuming $|P|=n$ and $|T|=m$).
+The solution described in class assumes both strings are over the same alphabet: what if they were not?
+
+Consider the following:
+Given a protein sequence pattern $P\in\Sigma_{AA}^*$ over the amino acid alphabet, and a RNA text $T\in\Sigma_{RNA}^*$ 
+(see footnote 
+\footnote{$\Sigma_{AA} = \{\texttt{A},\texttt{R},\texttt{N},\texttt{D},\texttt{B},\texttt{C},\texttt{E},\texttt{Q},\texttt{Z},\texttt{G},\texttt{H},\texttt{I},\texttt{L},\texttt{K},\texttt{M},\texttt{F},\texttt{P},\texttt{S},\texttt{T},\texttt{W},\texttt{Y},\texttt{V}\}$ and $\Sigma_{RNA} = \{\texttt{A},\texttt{C},\texttt{U},\texttt{G}\}$}). 
+Develop an algorithm that uses the maximum prefix overlap method to determine where the pattern $P$ is in the text $T$ (if it exists),
+and runs in $O(m+n)$ time. 
+
+Translating from RNA codons (3 nucleotides) to amino acids is done using the standard codon table (can be found in the slides, though its not actually needed for this exercise). 
+The problem is that to reverse the translation of an amino acid $p_i \in P$ there are multiple choice of codon that could have produced it, 
+thus there is an exponential number of possible un-translations of $P$.
+Therefore, we cannot simply enumerate all possible RNA un-translations of the pattern and run the maximum prefix overlap, it would be exponential time which is not feasible.
+
+Hint: you can run the algorithm multiple times, but as long as this number of repetitions is constant it is absorbed by the big-O.
+
+%\begin{tabular}{r|c|cc|cc|cc|cc|c|l}
+%\multicolumn{2}{c}{} & \multicolumn{2}{|c}{A} & \multicolumn{2}{|c}{C} & \multicolumn{2}{|c}{U} &  \multicolumn{2}{|c}{G} & \multicolumn{2}{c}{} \\
+%\hline
+%\multirow{12}{*}{First} & \multirow{4}{*}{A} &	AAC & \multirow{2}{*}{N} & 	ACC	& \multirow{4}{*}{T} & 	AUC	& \multirow{4}{*}{I} & 	AGC	& \multirow{2}{*}{S} & \multirow{4}{*}{C} & \multirow{12}{*}{Third}\\
+%%		AAU		ACU		AUU		AGU		U	
+%%		AAA	K	ACA		AUA		AGA	R	A	
+%%		AAG		ACG		AUG	M/start	AGG		G	
+%%	C	CAC	H	CCC	P	CUC	L	CGC	R	C	
+%%		CAU		CCU		CUU		CGU		U	
+%%		CAA	Q	CCA		CUA		CGA		A	
+%%		CAG		CCG		CUG		CGG		G	
+%%	U	UAC	Y	UCC	S	"UUC
+%%F	UGC	C	C	
+%%		UAU		UCU		UUU		UGU		U	
+%%		UAA	stop	UCA		UUA	L	UGA	stop	A	
+%%		UAG		UCG		UUG		UGG	W	G	
+%%	G	GAC	D	GCC	A	GUC	V	GGC	G	C	
+%%		GAU		GCU		GUU		GGU		U	
+%%		GAA	E	GCA		GUA		GGA		A	
+%%		GAG		GCG		GUG		GGG		G	
+%\end{tabular}
+
+\item \textbf{(20 points)}
+Given a directed graph $G = (V,E)$, source and sink vertexes $s,t\in V$, and a limit on the flow allowed through nodes $m_e$ (defined $\forall e\in E$).
+Write the max flow problem as a linear program, and explain each (set of) equation in your definition. 
+Remember the max flow problem assigns a flow (weight), $f_e$, to each \emph{edge} in a graph
+while maximizing the total flow going from the source to the sink. 
+For each node (other than the source and sink, i.e. $v\in V\setminus\{s,t\}$) 
+the total in flow must equal the out flow. 
+Some helpful notation to use:
+\begin{itemize}
+\item a directed edge $e_{(ab)}\in E$ goes from $a$ to $b$
+\item the set of \emph{in} edges to a vertex $v$  can be written as $E_{(*v)} = \left\{e_{(a,b)} | b = v,  e_{(ab)}\in E \right\}$
+\item the set of \emph{out} edges to a vertex $v$  can be written as $E_{(v*)} = \left\{e_{(a,b)} | a = v, e_{(ab)}\in E\right\}$ 
+\item we can say the sum of the in flow to a node $v$ is $\displaystyle\sum_{e \in E_{(v*)}} f_e$
+\end{itemize}
+Your variables will be the set of $f_e$'s, some of these (but not all) will end up in the optimization function. 
+The things to keep in mind that must be satisfied are: 
+(1) conservation of flow across nodes, 
+(2) maximum flow across an edge, and 
+(3) the outflow at the source should equal the inflow at the sink (though this may not need to be explicit in your program). 
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!75!black,title=Writing down an LP] 
+In this example below we are minimizing our objective function, our variables are $x_{1}, x_{2}, \& x_{3}$, and we have a collection of maximum values $m_{1}, m_{2}, \& m_{3}$. 
+As a reminder the objective function (which is being maximized or minimized) defines what makes a solution \emph{optimal}, 
+and the set of constraints (linear inequalities) define what makes a solution \emph{valid}
+As an aside, even though the values of $m_{x}$ are arbitrary that are not technically variables that we're trying to optimize. 
+\begin{equation*}
+\begin{array}{ll@{}ll}
+\text{minimize}  & 7 x_{1} + 14 x_{2} - 12 x_{3} \\
+\text{subject to}& x_{i} \leq m_{i}  &1 \le i \le 3\\
+			& \displaystyle\sum_{1 \le i \le 3}  x_{i} \geq 4,  &
+\end{array}
+\end{equation*}
+(This LP has no grounding in a real-world problem, I made it up.) 
+
+Note that the first line of the constraints section actually defines a collection of inequalities, one for each value of $i$. 
+\end{tcolorbox}
+
+\end{enumerate}
+\end{document}
