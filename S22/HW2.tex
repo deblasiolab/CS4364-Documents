@@ -85,7 +85,7 @@ Some helpful notation to use:
 \item a directed edge $e_{(ab)}\in E$ goes from $a$ to $b$
 \item the set of \emph{in} edges to a vertex $v$  can be written as $E_{(*v)} = \left\{e_{(a,b)} | b = v,  e_{(ab)}\in E \right\}$
 \item the set of \emph{out} edges to a vertex $v$  can be written as $E_{(v*)} = \left\{e_{(a,b)} | a = v, e_{(ab)}\in E\right\}$ 
-\item we can say the sum of the in flow to a node $v$ is $\displaystyle\sum_{e \in E_{(v*)}} f_e$
+\item we can say the sum of the \emph{out} flow to a node $v$ is $\displaystyle\sum_{e \in E_{(v*)}} f_e$
 \end{itemize}
 Your variables will be the set of $f_e$'s, some of these (but not all) will end up in the optimization function. 
 The things to keep in mind that must be satisfied are: 
