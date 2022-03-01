@@ -59,6 +59,8 @@ Note that the score for a column is now no longer the value of $\delta$ for the 
 \end{centering}
 \end{figure}
 
+\end{enumerate}
+
 {\huge Solution}\\
 {\Large the algorithm}
 \begin{itemize}
@@ -105,7 +107,7 @@ V(i,j-1) + I(T[j],\delta)	   & // \text{insert position $j$ from $T$}\\
  \]
  \item Fill in the remaining parts of $V$ table and perform traceback as described in the original algorithm outputting profiles instead of single characters in the alignment. 
 \end{itemize}
-\end{enumerate}
+
 
 
 {\Large correctness}\\
@@ -126,5 +128,6 @@ This means calculating the value at each cell is $O(\sigma^2)$-total time,
 and thus filling in $V$ is $O\left(\sigma^2\left(mn\right)\right)$-time. 
 The alignment can be at most $n+m$ columns long, and printing each profile can take $O(\sigma)$-time, therefore the traceback and printing take $O\left(\sigma\left(m+n\right)\right)$.
 Thus the overall running time, dominated by filling in $V$, takes $O\left(\sigma^2\left(mn\right)\right)$-time.
+
 
 \end{document}
