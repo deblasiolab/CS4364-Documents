@@ -1,0 +1,70 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=1in]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{url}
+
+\usepackage{amsmath}
+%SetFonts
+%\usepackage{multicolumn}
+\usepackage{multirow}
+%SetFonts
+
+
+\title{Homework 4}
+\author{CS 4364/5364\\Spring 2022}
+\date{Due: 7 March 2022}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+%Because of the reliance of the particular assignments in this class on mathematical notation, 
+%and the fact that all assignments will be submitted electronically, 
+%students are encouraged to use \LaTeX{} to formalize their responses. 
+%\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+%This assignment (like all others) will be posted on the course \texttt{github}\footnote{\url{github.com/deblasiolab/CS4364-documents}} as source code as well as in PDF form on the course website. 
+%Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+%Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+\begin{enumerate}
+\item \textbf{(20 points)} 
+\textbf{Describe how to \emph{use} the suffix tree data structure to find the longest \textit{palindrome} substring in a string $S$. 
+Remember a palindrome is a string that is the same forward as in reverse (i.e. \texttt{tacocat}). 
+The longest palindrome substring in the example string \texttt{bananas} is \texttt{anana}:
+it is both a substring (from the 2nd to 6th characters) and is a palindrome. 
+Include in the submission: (1) an algorithm, (2) an explanation of its correctness, and (3) an analysis of it's running time.}
+
+
+{\huge Algorithm}\\
+Adapted from Wing-Kin Sung, Section 3.3.5 (page 63). 
+
+\begin{enumerate}
+\item  \label{step:reverse} Construct $S^R = s_ns_{n-1}s_{n-2}...s_1$, the reverse of $S$. 
+\item  \label{step:build} Build a generalized suffix tree on $S$ and $S^R$.
+\item \label{step:LCS} find the longest common substring between $S$ and $S^R$ using the suffix tree, call its length $k$ and call the two suffix start positions $i$ and $j$ from $S$ and $S^R$ respectively
+\item  \label{step:check} if $i = n - j - k$, return the string found
+\item  \label{step:goto} otherwise, find the next longest and at step~\ref{step:LCS}
+\end{enumerate}
+
+{\huge Explanation}\\
+We know from the course discussion that by building a generalized suffix tree we can find an LCS of two strings. 
+Since the two strings are the string itself and its reverse, the longest common substring is going to be a string that is also reversed in the input. 
+This is only a palindrome when it is the \emph{same substring}, meaning the end position in the reverse string corresponds to the start position in the original string. 
+Since we know that index $i'$ in $S$ corresponds to index $n-i'$ in $S^R$, 
+we can use that along with the common string length to calculate the end position of the substring match in one direction or the other. 
+
+{\huge Runtime Analysis}\\
+Steps~\ref{step:reverse} and~\ref{step:build} will take $O(n)$, the string needs to be printed, and building is done using Ukkonen's algorithm. 
+Step~\ref{step:LCS} is worst case $O(n)$ each time it is run as discussed in class. 
+Step~\ref{step:check} is $O(1)$. 
+Step~\ref{step:goto} is also $O(1)$ itself, but may cause you to run~\ref{step:LCS} repeatedly, 
+since the LCS cannot increase, and can only be lowered $n$ times, we know~\ref{step:LCS} can only be run that many times.
+Therefore the total running time for all instances of~\ref{step:LCS} is $O(n^2)$ which is the dominating factor and thus the total running time of the algorithm. 
+
+\end{enumerate}
+\end{document} 
