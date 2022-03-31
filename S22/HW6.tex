@@ -1,0 +1,60 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=1in]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{url}
+
+\usepackage{amsmath}
+%SetFonts
+%\usepackage{multicolumn}
+\usepackage{multirow}
+%SetFonts
+
+
+\title{Homework 6}
+\author{CS 4364/5364\\Spring 2022}
+\date{Due: 6 April 2022}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+Because of the reliance of the particular assignments in this class on mathematical notation, 
+and the fact that all assignments will be submitted electronically, 
+students are encouraged to use \LaTeX{} to formalize their responses. 
+\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+This assignment (like all others) will be posted on the course \texttt{github}\footnote{\url{github.com/deblasiolab/CS4364-documents}} as source code as well as in PDF form on the course website. 
+%Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+\textbf{Question (25 points):} 
+Give an algorithm, a proof of correctness, and proof of running time to solve the following problem in $O(kn^2c)$-time.
+
+Given integers $k$ and $c$, as well as two strings $S$ and $T$ both of length $m >> k$, determine a distance between them that is calculated as the sum of: 
+\begin{itemize}
+\item $c+1$ times the number of shared distinct exact $k$-mers
+\item $c$ times the number of shared distinct $k$-mers with one change that have not been accounted for already
+\item $c-1$ times the number of shared distinct $k$-mers with two changes that have not been accounted for already
+\item ...
+\item $1$ times the number of shared distinct $k$-mers with $c$ changes that have not been accounted for already
+\end{itemize}
+normalized by the total number of distinct $k$-mers in both sequences.
+Here changes are replacements only and not indels. 
+
+As an example for the values of $k=3, c=2$ and the strings \texttt{AACTGT} and \texttt{TGTAAA} the value is  $\frac{3}{4}$. 
+The distinct $3$-mers from the two strings are \texttt{AAC,ACT,CTG,TGT} and \texttt{TGT,GTA,TAA,AAA}.
+There is one $3$-mer that matches exactly (\texttt{TGT}).
+There is one pair of $3$-mers that match with one change (\texttt{AAC} and \texttt{AAA}).
+There is one pair of $3$-mers that match with two changes (\texttt{CTG} and \texttt{GTA})
+The remaining pair would need 3 changes (i.e. more than $c$ changes). 
+Thus the similarity is 
+\[
+\frac{(1\times 3) + (1 \times 2) + (1 \times 1)}{8} = \frac{3}{4}.
+\]
+\end{document} 
+
+
