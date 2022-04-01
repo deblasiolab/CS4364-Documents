@@ -34,7 +34,7 @@ Graduate students will need to include the \texttt{.tex} files as well as a PDF,
 \textbf{Question (25 points):} 
 Give an algorithm, a proof of correctness, and proof of running time to solve the following problem in $O(kn^2c)$-time.
 
-Given integers $k$ and $c$, as well as two strings $S$ and $T$ both of length $m >> k$, determine a distance between them that is calculated as the sum of: 
+Given integers $k$ and $c$, as well as two strings $S$ and $T$ both of length $n >> k$, determine a similarity between them that is calculated as the sum of: 
 \begin{itemize}
 \item $c+1$ times the number of shared distinct exact $k$-mers
 \item $c$ times the number of shared distinct $k$-mers with one change that have not been accounted for already
@@ -45,7 +45,7 @@ Given integers $k$ and $c$, as well as two strings $S$ and $T$ both of length $m
 normalized by the total number of distinct $k$-mers in both sequences.
 Here changes are replacements only and not indels. 
 
-As an example for the values of $k=3, c=2$ and the strings \texttt{AACTGT} and \texttt{TGTAAA} the value is  $\frac{3}{4}$. 
+As an example for the values of $k=3, c=2$ and the strings \texttt{AACTGT} and \texttt{TGTAAA} the similarity is $\frac{3}{4}$. 
 The distinct $3$-mers from the two strings are \texttt{AAC,ACT,CTG,TGT} and \texttt{TGT,GTA,TAA,AAA}.
 There is one $3$-mer that matches exactly (\texttt{TGT}).
 There is one pair of $3$-mers that match with one change (\texttt{AAC} and \texttt{AAA}).
