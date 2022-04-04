@@ -34,7 +34,7 @@ Graduate students will need to include the \texttt{.tex} files as well as a PDF,
 \textbf{Question (25 points):} 
 Give an algorithm, a proof of correctness, and proof of running time to solve the following problem in $O(kn^2c)$-time.
 
-Given integers $k$ and $c$, as well as two strings $S$ and $T$ both of length $n >> k$, determine a similarity between them that is calculated as the sum of: 
+Given integers $k\ge1$ and $c\ge1$, as well as two strings $S$ and $T$ both of length $n \gg k$, determine a similarity between them that is calculated as the sum of: 
 \begin{itemize}
 \item $c+1$ times the number of shared distinct exact $k$-mers
 \item $c$ times the number of shared distinct $k$-mers with one change that have not been accounted for already
