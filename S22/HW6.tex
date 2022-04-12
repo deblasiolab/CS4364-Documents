@@ -8,17 +8,21 @@
 \usepackage{amssymb}
 \usepackage{tcolorbox}
 \usepackage{url}
-
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
 \usepackage{amsmath}
 %SetFonts
 %\usepackage{multicolumn}
 \usepackage{multirow}
+\usepackage{xspace}
 %SetFonts
+\newcommand{\change}[2]{\sout{#1}\xspace\textcolor{orange}{#2}}
+\newcommand{\add}[1]{\textcolor{orange}{#1}}
 
 
 \title{Homework 6}
 \author{CS 4364/5364\\Spring 2022}
-\date{Due: 6 April 2022}							% Activate to display a given date or no date
+\date{Due: \change{6}{13} April 2022}							% Activate to display a given date or no date
 
 \begin{document}
 \maketitle
@@ -31,16 +35,16 @@ This assignment (like all others) will be posted on the course \texttt{github}\f
 %Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
 Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
 
-\textbf{Question (25 points):} 
+\textbf{Question (\change{25}{35} points):} 
 Give an algorithm, a proof of correctness, and proof of running time to solve the following problem in $O(kn^2c)$-time.
 
 Given integers $k\ge1$ and $c\ge1$, as well as two strings $S$ and $T$ both of length $n \gg k$, determine a similarity between them that is calculated as the sum of: 
 \begin{itemize}
-\item $c+1$ times the number of shared distinct exact $k$-mers
-\item $c$ times the number of shared distinct $k$-mers with one change that have not been accounted for already
-\item $c-1$ times the number of shared distinct $k$-mers with two changes that have not been accounted for already
+\item $c+1$ times the \add{maximum} number of shared distinct exact $k$-mers
+\item $c$ times the \add{maximum} number of shared distinct $k$-mers with one change that have not been accounted for already
+\item $c-1$ times the \add{maximum}  number of shared distinct $k$-mers with two changes that have not been accounted for already
 \item ...
-\item $1$ times the number of shared distinct $k$-mers with $c$ changes that have not been accounted for already
+\item $1$ times the \add{maximum} number of shared distinct $k$-mers with $c$ changes that have not been accounted for already
 \end{itemize}
 normalized by the total number of distinct $k$-mers in both sequences.
 Here changes are replacements only and not indels. 
@@ -55,6 +59,8 @@ Thus the similarity is
 \[
 \frac{(1\times 3) + (1 \times 2) + (1 \times 1)}{8} = \frac{3}{4}.
 \]
-\end{document} 
 
+\add{Hint: to find the maximum number of matching $k$-mers with a fixed number of changes, you may want to look into Hopcroft-Karp which finds a maximal-cardinality matching in bipartite graphs\footnote{\url{https://en.wikipedia.org/wiki/Hopcroft-Karp_algorithm}}}
+
+\end{document} 
 
