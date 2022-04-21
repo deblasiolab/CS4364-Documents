@@ -1,0 +1,130 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=1in]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{url}
+\usepackage{xspace}
+
+\usepackage{amsmath}
+%SetFonts
+%\usepackage{multicolumn}
+\usepackage{multirow}
+%SetFonts
+
+\newcommand{\kmer}{$k$-mer\xspace}
+\newcommand{\kmers}{\kmer{}s\xspace}
+
+\title{Homework 6}
+\author{CS 4364/5364\\Spring 2022}
+\date{Due: 6 April 2022}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+Because of the reliance of the particular assignments in this class on mathematical notation, 
+and the fact that all assignments will be submitted electronically, 
+students are encouraged to use \LaTeX{} to formalize their responses. 
+\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+This assignment (like all others) will be posted on the course \texttt{github}\footnote{\url{github.com/deblasiolab/CS4364-documents}} as source code as well as in PDF form on the course website. 
+%Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+\textbf{
+\textit{Question (35 points):} 
+Give an algorithm, a proof of correctness, and proof of running time to solve the following problem in $O(kn^2c)$-time.}
+
+\textbf{
+Given integers $k\ge1$ and $c\ge1$, as well as two strings $S$ and $T$ both of length $n \gg k$, determine a similarity between them that is calculated as the sum of: 
+\begin{itemize}
+\item $c+1$ times the number of shared distinct exact $k$-mers
+\item $c$ times the maximum number of shared distinct $k$-mers with one change that have not been accounted for already
+\item $c-1$ times the maximumnumber of shared distinct $k$-mers with two changes that have not been accounted for already
+\item ...
+\item $1$ times the maximum number of shared distinct $k$-mers with $c$ changes that have not been accounted for already
+\end{itemize}
+normalized by the total number of distinct $k$-mers in both sequences.
+Here changes are replacements only and not indels. }
+
+\textbf{As an example for the values of $k=3, c=2$ and the strings \texttt{AACTGT} and \texttt{TGTAAA} the similarity is $\frac{3}{4}$. 
+The distinct $3$-mers from the two strings are \texttt{AAC,ACT,CTG,TGT} and \texttt{TGT,GTA,TAA,AAA}.
+There is one $3$-mer that matches exactly (\texttt{TGT}).
+There is one pair of $3$-mers that match with one change (\texttt{AAC} and \texttt{AAA}).
+There is one pair of $3$-mers that match with two changes (\texttt{CTG} and \texttt{GTA})
+The remaining pair would need 3 changes (i.e. more than $c$ changes). 
+Thus the similarity is 
+\[
+\frac{(1\times 3) + (1 \times 2) + (1 \times 1)}{8} = \frac{3}{4}.
+\]
+}
+
+{\Large Algorithm}\\
+\begin{enumerate}
+\item \label{step:start} Let $\mathcal{S}$ be a set, that will eventually contain all of the distinct \kmers from $S$.
+\item \label{step:init} Define the current \kmer as $C_S = s_1s_2...s_k$ and a counter $c_S = k$
+\item \label{step:add} If $C_S \notin \mathcal{A}$, add it ($\mathcal{A} = \mathcal{A} \cup \{C\}$).
+\item \label{step:next} Update $C_S$ and $c$ to the next \kmer ($c_S++ ; C_S = C_S[2...k]s_{c_S}$).
+\item \label{step:gotokkmer} If $c_S \le n$, go to Step~\ref{step:add}. 
+\item \label{step:finishExtract}Follow steps above to similarly construct $\mathcal{T}$ from $T$.
+\item \label{step:Tkmer} Let the total number of \kmers in both sets be $tk = |\mathcal{S}| + |\mathcal{T}|$.
+\item Let the current allowable \kmer difference $d = 0$. 
+\item Let the final return value $r = 0$. 
+\item Create an empty graph $G$. 
+\item \label{step:graph} Create 2 1-dimensional boolean arrays $U_S$ and $U_T$ of length $|\mathcal{S}|$ and $|\mathcal{T}|$ respectively.
+\item \label{step:hamming} $\forall s \in \mathcal{S}, t \in \mathcal{T}$, calculate the hamming distance between $s$ and $t$, if it is equal to $d$:
+\begin{itemize}
+\item Add $s$ and $t$ as vertices to $G$ if $U_S[s]$ and $U_T[t]$ are false respectively.
+\item Add the edge $(s,t)$ to $G$.
+\item Set $U_S[s]$ and $U_T[t]$ to true. 
+\end{itemize}
+\item \label{step:mcm} Solve the maximal-cardinality matching problem on $G$. 
+\item \label{step:processMatch} For each pair of matched vertices $s$ and $t$:
+\begin{itemize}
+\item Remove the \kmers from the sets ($\mathcal{S} = \mathcal{S} \setminus \{s\}, \mathcal{T} = \mathcal{T} \setminus \{t\}$). 
+\item Update the return $r += (c - d + 1)$.
+\end{itemize}
+\item \label{step:endDLoop} Update $d = d+1$.
+\item \label{step:stop} If $d\le c$ go to Step~\ref{step:graph}.
+%\item $\forall s \in \mathcal{S}, t \in \mathcal{T}$, calculate the hamming distance between $s$ and $t$, if it is equal to $d$:
+%\begin{itemize}
+%\item Remove the strings from the sets ($\mathcal{S} = \mathcal{S} \setminus \{s\}, \mathcal{T} = \mathcal{T} \setminus \{t\}$). 
+%\item Update the return $r += (c - d + 1)$.
+%\end{itemize}
+\item Return $r/tk$.
+\end{enumerate}
+
+
+{\Large Correctness}\\ 
+Steps~\ref{step:start} to \ref{step:finishExtract} construct the list of unique \kmers from the strings. 
+Since $\mathcal{S}$ and $\mathcal{T}$ are unordered sets, they will be unique in the sets of \kmers they contain. 
+By using a known maximal-cardinality matching to find the subset of \kmers that provides the highest score we can ensure we will find the most matches at each value of $d$. 
+The algorithm will only look for matched \kmers up to hamming distance $c$ because of the check in Step~\ref{step:stop}.
+\kmers can only be matched once because in order for them to be matched they have to first be a node in a graph at some iteration, then be in a matching. 
+If this is true, then by Step~\ref{step:processMatch} they will be removed from $\mathcal{S}$ ($\mathcal{T}$) and thus cannot be in a graph is later iterations. 
+Also, because each vertex in the graph cannot be in more than one matching a \kmer cannot be matched with more than one other in a single iteration.  
+
+{\Large Running Time}\\
+Step~\ref{step:init} takes $O(k)$-time. 
+Step~\ref{step:add} takes $O(|\mathcal{S}|)$ time each iteration, and because after Step~\ref{step:next} this increases by 1, and it can be repeated $n$ times from Step~\ref{step:gotokkmer}, the total running time of these 3 steps is $O(n^2)$.
+Similarly Step~\ref{step:Tkmer} is also $O(n^2)$. 
+Step~\ref{step:graph} can take at most $O(n)$ time, tough the two sets are constantly decreasing. 
+Calculating the hamming distance in Step~\ref{step:hamming} will take $O(k)$ time for each pair of \kmers, of which there are at most $n^2$, therefore this step is $O(kn^2)$.
+Because we keep a boolean array for each \kmer we don't need to search to determine if its already in the graph, thus the rest of Step~\ref{step:hamming} will take constant time for each possible \kmer pair. 
+We know that in a graph with at most $2\times n$ vertices, and $n^2$ edges the running time of a maximum cardinality matching algorithm such as Hopcroft-Karp will be $O(n \sqrt{n^2}) = O(n^2)$.
+Step~\ref{step:processMatch} will deal with at most $n$ matches, and processing each one will take constant time to deal with. 
+Finally, because of Step~\ref{step:stop} we will run Steps~\ref{step:graph} to~\ref{step:endDLoop} st most $c$ times; 
+since Step~\ref{step:hamming} dominates the running time of all of these, 
+we see the total running time of the loop is $O(ckn^2)$ time which dominates all of the steps before the loop. 
+
+
+\end{document} 
+
+
+
+
+
+
