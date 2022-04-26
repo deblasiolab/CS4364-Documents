@@ -1,0 +1,56 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage[margin=1in]{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{tcolorbox}
+\usepackage{url}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+\usepackage{amsmath}
+%SetFonts
+%\usepackage{multicolumn}
+\usepackage{multirow}
+\usepackage{xspace}
+%SetFonts
+\newcommand{\change}[2]{\sout{#1}\xspace\textcolor{orange}{#2}}
+\newcommand{\add}[1]{\textcolor{orange}{#1}}
+
+
+\title{Homework 9}
+\author{CS 4364/5364\\Spring 2022}
+\date{Due: 9 May 2022}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+Because of the reliance of the particular assignments in this class on mathematical notation, 
+and the fact that all assignments will be submitted electronically, 
+students are encouraged to use \LaTeX{} to formalize their responses. 
+\textbf{For those enrolled in the graduate section the use of latex is \emph{required}.}
+This assignment (like all others) will be posted on the course \texttt{github}\footnote{\url{github.com/deblasiolab/CS4364-documents}} as source code as well as in PDF form on the course website. 
+%Please submit your assignment to the professor via email, either as a link to your assignment online (i.e. overleaf or github) or as an attachment. 
+Graduate students will need to include the \texttt{.tex} files as well as a PDF, this is optional but encouraged for undergraduates. 
+
+\textbf{Question (25 points):} 
+Given a segment of the genome $G$ and an RNA sequence $R$, 
+describe an algorithm (along with proofs of correctness and running-time) 
+to align the RNA to a segment of the genome (i.e. all of the RNA, substring of the Genome) 
+allowing for gaps left by the removal of introns. 
+
+Use the following penalty/reward structure: 
+\begin{itemize}
+\item Matches, mismatches, and single character indels will be scored using a function $\delta(a,b)$, defined for $a,b \in \Sigma \cup \{\texttt{-}\}$.
+\item Intron (represented as long segments of deletions from the genome) will be scored not based on length but on the two characters in the RNA bordering the intron. 
+Let $s_1,s_2$ and $p_1,p_2$ be the characters before and after the intron gap respectively (in the RNA of course). 
+The penalty of inserting the intron between them (a substring in $R$ is $....s_1s_2p_1p_2...$) is scored by $\gamma(s_1,s_2,p_1,p_2)$.
+Notice that $\gamma$ does not take into account the intron length (deletion in the genome). 
+\end{itemize}
+
+Your algorithm should have a running time of $O(mn^2)$ (assuming $|G|=m,|R|=n$) and use $O(mn)$ space.
+
+\end{document} 
+
