@@ -43,14 +43,15 @@ allowing for gaps left by the removal of introns.
 
 Use the following penalty/reward structure: 
 \begin{itemize}
-\item Matches, mismatches, and single character indels will be scored using a function $\delta(a,b)$, defined for $a,b \in \Sigma \cup \{\texttt{-}\}$.
+\item Matches, mismatches, and single character indels will be scored using a function $\delta(a,b)$, defined for $a,b \in \Sigma \cup \{\texttt{-}\}$ 
+(assume $\Sigma$ contains characters from both the RNA and DNA alphabets).
 \item Intron (represented as long segments of deletions from the genome) will be scored not based on length but on the two characters in the RNA bordering the intron. 
 Let $s_1,s_2$ and $p_1,p_2$ be the characters before and after the intron gap respectively (in the RNA of course). 
 The penalty of inserting the intron between them (a substring in $R$ is $....s_1s_2p_1p_2...$) is scored by $\gamma(s_1,s_2,p_1,p_2)$.
 Notice that $\gamma$ does not take into account the intron length (deletion in the genome). 
 \end{itemize}
 
-Your algorithm should have a running time of $O(mn^2)$ (assuming $|G|=m,|R|=n$) and use $O(mn)$ space.
+Your algorithm should have a running time of $O(m^2n)$ (assuming $|G|=m,|R|=n$) and use $O(mn)$ space.
 
 \end{document} 
 
